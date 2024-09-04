@@ -1,5 +1,7 @@
 package br.com.controlador;
 
+import java.sql.SQLOutput;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
@@ -9,6 +11,9 @@ import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 
 import br.com.dao.DaoGenerico;
+import br.com.dao.DaoUsuario;
+import br.com.dao.DaoUsuarioimp;
+import br.com.entidades.Tarefa;
 import br.com.entidades.Usuario;
 import jpautil.JPAUtil;
 
@@ -20,7 +25,29 @@ public class UsuarioBean {
 	
 	private Usuario usuario = new Usuario();
 	private DaoGenerico<Usuario> daoGenerico = new DaoGenerico<Usuario>();
+	private DaoUsuario daoUsuario = new DaoUsuarioimp();
 
+	public String logar() {
+		Usuario usuarioLogar = daoUsuario.consultarUsuario(usuario.getUsername(), usuario.getSenha());
+		
+		if(usuarioLogar != null) {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			externalContext.getSessionMap().put("usuarioLogado", usuarioLogar.getUsername());
+			
+			return "paginaPrincipal?faces-redirect=true";
+		}
+		
+		return"index?faces-redirect=true";
+	}
+	
+	//cadastrar usuario
+	public String cadastrar() {
+		daoGenerico.save(usuario);
+		usuario = new Usuario();
+		return "";
+	}
+	
 
 	//getters e setters
 	public Usuario getUsuario() {
