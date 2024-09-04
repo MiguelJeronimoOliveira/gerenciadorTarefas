@@ -59,5 +59,17 @@ public class DaoGenerico<E> {
 		entityTransaction.commit();
 		return retorno;
 	}
+	
+	public List<E> listarOrdenado (Class<E> entidade)
+	{
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		List<E> lista = entityManager.createQuery("from " + entidade.getName() + " order by id ASC").getResultList();
+		
+		transaction.commit();
+		return lista;
+		
+	}
 
 }

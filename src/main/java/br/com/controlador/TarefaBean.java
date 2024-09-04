@@ -8,16 +8,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.dao.DaoGenerico;
+import br.com.dao.DaoTarefa;
 import br.com.entidades.Tarefa;
+import br.com.filtros.*;
+import br.com.dao.DaoTarefa;
 import br.com.entidades.SituacaoTarefa;
 
 @ManagedBean(name = "tarefaBean")
+@ViewScoped
 public class TarefaBean {
 
 	private Tarefa tarefa = new Tarefa();
 	private DaoGenerico<Tarefa> daoGenericoT = new DaoGenerico<Tarefa>();
 	private List<Tarefa> tarefas = new ArrayList<Tarefa>();
-	
+	private FiltroTarefa filtro = new FiltroTarefa();
 	
 	//lista de tarefas 
 	@PostConstruct
@@ -27,6 +31,13 @@ public class TarefaBean {
 	
 	
 	//operacoes CRUD
+	
+	public String filtrar ()
+	{
+		DaoTarefa dao = new DaoTarefa();
+		tarefas = dao.filtrar(filtro);
+		return "";
+	}
 	
 	//salvar tarefa
 	public String salvar() {
