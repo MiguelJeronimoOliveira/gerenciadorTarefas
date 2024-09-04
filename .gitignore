@@ -1,0 +1,32 @@
+# Eclipse specific files
+.classpath
+.project
+.settings/
+
+# Maven specific files
+target/
+!.mvn/wrapper/maven-wrapper.jar
+**/src/main/resources/archetype-resources/
+**/src/test/resources/archetype-resources/
+!pom.xml
+
+# Logs
+*.log
+
+# Mac OS specific
+.DS_Store
+
+# Java specific files
+*.class
+*.jar
+*.war
+*.ear
+
+# IntelliJ specific files
+.idea/
+*.iml
+*.iws
+
+# Node specific
+node_modules/
+/build/

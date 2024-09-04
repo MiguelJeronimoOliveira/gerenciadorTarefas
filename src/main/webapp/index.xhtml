@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>LoginPage</title>
+</h:head>
+<body>
+	<h:form id="formLogin" style="margin-top:20%; margin-left:40%">
+			<h:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText value="Realizar Login"/>
+			</f:facet>
+			<h:outputText value ="Login: "/>
+			<h:inputText value ="#{usuarioBean.usuario.login}"/>
+			
+			<h:outputText value ="Senha: "/>
+			<h:inputSecret value ="#{usuarioBean.usuario.senha}"/>
+			</h:panelGrid>
+			
+			<h:commandButton value="Logar" action="#{usuarioBean.logar}"/>
+			ainda não tem uma conta?
+			<h:commandButton value="Criar Conta" action="#{usuarioBean.registrar}"/>
+	</h:form>
+	 
+</body>
+</html>
