@@ -10,8 +10,10 @@
 </head>
 
 <h:body>
+	<h:outputText value="Bem Vindo,     " style="font-size:20px"/>
+	<h:outputText value="#{usuarioBean.nomeUsuario}" style="font-size:20px"/>
     <h:form>
-        <h:commandButton value="Logout" action="#{loginBean.logout}" />
+        <h:commandButton value="Sair" action="#{usuarioBean.logout}" />
     </h:form>
 
 
@@ -49,7 +51,7 @@
 		<h:commandButton value = "Editar" action="#{tarefaBean.editar}"/>
 		<h:commandButton value="pesquisar" action="#{tarefaBean.filtrar}"/>
 		
-		<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" border="2" cellpadding="5">
+		<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" border="2" cellpadding="5" rendered="true">
 		
 		<f:facet name="header">
 			<h:outputText value="Lista de tarefas"/>

@@ -10,6 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,7 +29,9 @@ public class Tarefa implements Serializable {
 	
 	private String descricao;
 	
-	// responsavel
+	@ManyToOne
+	@JoinColumn(name = "responsavelID")
+	private Usuario responsavel;
 	
 	private String prioridade;
 	
@@ -73,6 +78,12 @@ public class Tarefa implements Serializable {
 	}
 	public void setSituacao(SituacaoTarefa situacao) {
 		this.situacao = situacao;
+	}
+	public Usuario getResponsavel() {
+		return responsavel;
+	}
+	public void setResponsavel(Usuario responsavel) {
+		this.responsavel = responsavel;
 	}
 
 	

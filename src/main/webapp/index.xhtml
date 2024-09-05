@@ -14,7 +14,7 @@
 			<f:facet name="header">
 				<h:outputText value="Realizar Login"/>
 			</f:facet>
-			<h:outputText value ="Login: "/>
+			<h:outputText value ="Usuario: "/>
 			<h:inputText value ="#{usuarioBean.usuario.username}"/>
 			
 			<h:outputText value ="Senha: "/>
@@ -22,6 +22,7 @@
 			</h:panelGrid>
 			
 			<h:commandButton value="Logar" action="#{usuarioBean.logar}"/>
+			<br/>
 			ainda não tem uma conta?
 			<h:commandButton value="Criar Conta" action="#{usuarioBean.cadastrar}"/>
 	</h:form>

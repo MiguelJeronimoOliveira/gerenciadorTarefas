@@ -6,9 +6,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.persistence.NamedQuery;
 
 import br.com.dao.DaoGenerico;
 import br.com.dao.DaoTarefa;
+import br.com.dao.DaoUsuarioimp;
 import br.com.entidades.Tarefa;
 import br.com.filtros.*;
 import br.com.dao.DaoTarefa;
@@ -16,6 +18,7 @@ import br.com.entidades.SituacaoTarefa;
 
 @ManagedBean(name = "tarefaBean")
 @ViewScoped
+@NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel")
 public class TarefaBean {
 
 	private Tarefa tarefa = new Tarefa();
@@ -39,8 +42,13 @@ public class TarefaBean {
 		return "";
 	}
 	
+	public void setarResponsavel() {
+		tarefa.setResponsavel(DaoUsuarioimp.getUsuario());
+	}
+	
 	//salvar tarefa
 	public String salvar() {
+		setarResponsavel();
 		daoGenericoT.save(tarefa);
 		tarefa = new Tarefa();
 		exibirLista();
@@ -60,8 +68,7 @@ public class TarefaBean {
 		tarefa = new Tarefa();
 		exibirLista();
 		return "";
-	}
-	
+	}	
 	
 	public String concluir() {
 		
