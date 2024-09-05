@@ -56,9 +56,20 @@ public class UsuarioBean {
 	public String cadastrar() {
 		daoGenerico.save(usuario);
 		usuario = new Usuario();
+		mensagem("Conta crida com sucesso! faça login");
 		return "";
 	}
 	
+	
+	
+
+	private void mensagem(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(null, message);
+		
+	}
+
 
 	//getters e setters
 	public Usuario getUsuario() {

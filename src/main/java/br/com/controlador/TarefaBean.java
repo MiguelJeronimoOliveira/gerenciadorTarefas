@@ -6,42 +6,41 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.NamedQuery;
 
 import br.com.dao.DaoGenerico;
-import br.com.dao.DaoTarefa;
 import br.com.dao.DaoUsuarioimp;
 import br.com.entidades.Tarefa;
 import br.com.filtros.*;
-import br.com.dao.DaoTarefa;
 import br.com.entidades.SituacaoTarefa;
 
 @ManagedBean(name = "tarefaBean")
 @ViewScoped
-@NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel")
 public class TarefaBean {
 
 	private Tarefa tarefa = new Tarefa();
 	private DaoGenerico<Tarefa> daoGenericoT = new DaoGenerico<Tarefa>();
 	private List<Tarefa> tarefas = new ArrayList<Tarefa>();
-	private FiltroTarefa filtro = new FiltroTarefa();
 	
 	//lista de tarefas 
 	@PostConstruct
 	public void exibirLista() {
-		tarefas = daoGenericoT.getListEntity(Tarefa.class);
+		this.tarefas = new ArrayList<Tarefa>();
+		this.tarefas.addAll(getTarefasOrdenadas());
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Tarefa> getTarefasOrdenadas() {
+        List<Tarefa> listaTarefas = daoGenericoT.getEntityManager().createNamedQuery("Tarefas.de")
+                .setParameter("responsavel", DaoUsuarioimp.getUsuario())
+                .getResultList();
+
+        return listaTarefas;
+	}
 	
 	//operacoes CRUD
 	
-	public String filtrar ()
-	{
-		DaoTarefa dao = new DaoTarefa();
-		tarefas = dao.filtrar(filtro);
-		return "";
-	}
 	
+	//atribuir usuario a coluna responsavel
 	public void setarResponsavel() {
 		tarefa.setResponsavel(DaoUsuarioimp.getUsuario());
 	}
@@ -63,13 +62,15 @@ public class TarefaBean {
 	}
 
 	//deletar tarefa
-	public String deletar() {
+	public String deletar(Tarefa tarefa) {
+		System.out.println(tarefa);
 		daoGenericoT.delete(tarefa);
-		tarefa = new Tarefa();
+		this.tarefa = new Tarefa();
 		exibirLista();
 		return "";
 	}	
 	
+	//mudar situação da tarefa
 	public String concluir() {
 		
 		tarefa.setSituacao(SituacaoTarefa.concluida);

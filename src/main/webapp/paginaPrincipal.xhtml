@@ -5,8 +5,9 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <head>
+<h:outputStylesheet name="css/styles.css"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Princiapal</title>
+<title>Principal</title>
 </head>
 
 <h:body>
@@ -51,7 +52,7 @@
 		<h:commandButton value = "Editar" action="#{tarefaBean.editar}"/>
 		<h:commandButton value="pesquisar" action="#{tarefaBean.filtrar}"/>
 		
-		<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" border="2" cellpadding="5" rendered="true">
+		<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" border="2" cellpadding="5">
 		
 		<f:facet name="header">
 			<h:outputText value="Lista de tarefas"/>
@@ -95,10 +96,9 @@
 				
 				<h:outputLabel style= "width:200px" value="  "/>
 				
-				<h:commandLink value="Excluir" action="#{tarefaBean.deletar}">
+				<h:commandLink value="Deletar" action="#{tarefaBean.deletar(tarefa)}">
 					<f:setPropertyActionListener value="#{tarefa}" target="#{tarefaBean.tarefa}"/>
 				</h:commandLink>
-				
 				<h:outputLabel style= "width:200px" value="  "/>
 				
 				<h:commandLink value="Concluir" action="#{tarefaBean.concluir}">

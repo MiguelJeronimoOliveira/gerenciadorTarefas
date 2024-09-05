@@ -16,17 +16,12 @@ public class DaoUsuarioimp implements DaoUsuario {
 		Usuario usuario = null;
 		
 		EntityManager entityManager = JPAUtil.getEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
 		
         usuario = (Usuario) entityManager.createQuery(
                 "select u from Usuario u where u.username = :username and u.senha = :senha", Usuario.class)
                 .setParameter("username", username)
                 .setParameter("senha", senha)
                 .getSingleResult();
-		
-		
-		entityTransaction.commit();
 		
 		return usuario;
 	}

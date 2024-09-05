@@ -21,7 +21,6 @@ public class FiltroAutenticacao implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        JPAUtil.getEntityManager();
     }
 
     @Override

@@ -1,0 +1,80 @@
+@charset "UTF-8";
+/* Estilo global */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h:form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+h:panelGrid {
+    margin-bottom: 20px;
+}
+
+h:panelGrid h:outputText {
+    font-size: 14px;
+    color: #555;
+}
+
+h:panelGrid h:inputText, 
+h:panelGrid h:inputSecret {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h:commandButton {
+    background-color: #4A90E2;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+h:commandButton:hover {
+    background-color: #357ABD;
+}
+
+h:commandButton:focus {
+    outline: none;
+}
+
+h:outputText {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+h:form a {
+    font-size: 14px;
+    color: #4A90E2;
+    text-decoration: none;
+    display: block;
+    margin-top: 15px;
+}
+
+h:form a:hover {
+    text-decoration: underline;
+}

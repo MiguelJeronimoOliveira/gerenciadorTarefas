@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel")
 public class Tarefa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -85,9 +86,13 @@ public class Tarefa implements Serializable {
 	public void setResponsavel(Usuario responsavel) {
 		this.responsavel = responsavel;
 	}
+	
+	@Override
+	public String toString() {
+		return "Tarefa [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", responsavel=" + responsavel
+				+ ", prioridade=" + prioridade + ", deadline=" + deadline + ", situacao=" + situacao + "]";
+	}
 
-	
-	
 }
 	
 	
