@@ -75,6 +75,7 @@ public class TarefaBean {
 		
 		tarefa.setSituacao(SituacaoTarefa.concluida);
 		editar();
+		tarefa = new Tarefa();
 		
 		return "";
 	}

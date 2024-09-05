@@ -1,7 +1,7 @@
 package br.com.entidades;
 
 public enum SituacaoTarefa {
-	emAndamento,
+	Executando,
 	concluida;
 	
 	
