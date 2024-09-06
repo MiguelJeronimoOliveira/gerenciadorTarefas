@@ -27,9 +27,27 @@ public class UsuarioBean {
 	private DaoGenerico<Usuario> daoGenerico = new DaoGenerico<Usuario>();
 	private DaoUsuario daoUsuario = new DaoUsuarioimp();
 
+	//ir para pagina principal
+	public String paginaPrincipal() {
+		return"paginaPrincipal?faces-redirect=true";
+	}
+	
+	//ir para pagina de pesquisas
+	public String pesquisarTarefas() {
+		return "pesquisar?faces-redirect=true";
+	}
+	
+	
 	//puxar nome de usuario
 	public String getNomeUsuario() {
 		return DaoUsuarioimp.getUsuario().getUsername();
+	}
+	
+	//puxar usuarioLogado na sessão 
+	public static Usuario getUsuarioLogado() {
+	    FacesContext facesContext = FacesContext.getCurrentInstance();
+	    ExternalContext externalContext = facesContext.getExternalContext();
+	    return (Usuario) externalContext.getSessionMap().get("usuarioLogado");
 	}
 	
 	

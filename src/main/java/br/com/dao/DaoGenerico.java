@@ -9,7 +9,7 @@ import jpautil.JPAUtil;
 
 public class DaoGenerico<E> {
 
-	private static final EntityManager entityManager = JPAUtil.getEntityManager();
+	protected EntityManager entityManager = JPAUtil.getEntityManager();
 	
 	//DAO CRUD
 	public void save(E entidade) {

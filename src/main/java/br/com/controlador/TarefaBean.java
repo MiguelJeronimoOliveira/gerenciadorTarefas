@@ -6,8 +6,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 import br.com.dao.DaoGenerico;
+import br.com.dao.DaoTarefa;
 import br.com.dao.DaoUsuarioimp;
 import br.com.entidades.Tarefa;
 import br.com.filtros.*;
@@ -20,12 +22,21 @@ public class TarefaBean {
 	private Tarefa tarefa = new Tarefa();
 	private DaoGenerico<Tarefa> daoGenericoT = new DaoGenerico<Tarefa>();
 	private List<Tarefa> tarefas = new ArrayList<Tarefa>();
-	
+	private FiltroTarefa filtro = new FiltroTarefa();
+	private List<Tarefa> tarefasFiltradas = new ArrayList<Tarefa>();
+	private DaoTarefa daoTarefa = new DaoTarefa();
 	//lista de tarefas 
+	
+	
 	@PostConstruct
 	public void exibirLista() {
 		this.tarefas = new ArrayList<Tarefa>();
 		this.tarefas.addAll(getTarefasOrdenadas());
+	}
+	
+	public void filtrar ()
+	{
+		tarefas = daoTarefa.filtrar(filtro);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -48,6 +59,7 @@ public class TarefaBean {
 	//salvar tarefa
 	public String salvar() {
 		setarResponsavel();
+		tarefa.setSituacao(SituacaoTarefa.EmAndamento);
 		daoGenericoT.save(tarefa);
 		tarefa = new Tarefa();
 		exibirLista();
@@ -73,12 +85,21 @@ public class TarefaBean {
 	//mudar situação da tarefa
 	public String concluir() {
 		
-		tarefa.setSituacao(SituacaoTarefa.concluida);
+		tarefa.setSituacao(SituacaoTarefa.Concluida);
 		editar();
 		tarefa = new Tarefa();
 		
 		return "";
 	}
+	
+	//get ENUM situacao
+    public List<SelectItem> getSituacoes() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (SituacaoTarefa situacao : SituacaoTarefa.values()) {
+            items.add(new SelectItem(situacao, situacao.getLabel()));
+        }
+        return items;
+    }
 	
 	public void novo() {
 		tarefa = new Tarefa();
@@ -111,6 +132,29 @@ public class TarefaBean {
 		this.tarefas = tarefas;
 	}
 
+	public FiltroTarefa getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(FiltroTarefa filtro) {
+		this.filtro = filtro;
+	}
+
+	public List<Tarefa> getTarefasFiltradas() {
+		return tarefasFiltradas;
+	}
+
+	public void setTarefasFiltradas(List<Tarefa> tarefasFiltradas) {
+		this.tarefasFiltradas = tarefasFiltradas;
+	}
+
+	public DaoTarefa getDaoTarefa() {
+		return daoTarefa;
+	}
+
+	public void setDaoTarefa(DaoTarefa daoTarefa) {
+		this.daoTarefa = daoTarefa;
+	}
 	
 
 }
