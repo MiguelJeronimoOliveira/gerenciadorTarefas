@@ -39,6 +39,7 @@ public class Tarefa implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date deadline = new Date();
 	
+	@Enumerated(EnumType.STRING)
 	private SituacaoTarefa situacao;
 	
 	//getters e setters

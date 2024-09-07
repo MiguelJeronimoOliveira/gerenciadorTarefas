@@ -1,10 +1,10 @@
 package br.com.entidades;
 
 public enum SituacaoTarefa {
-	EmAndamento("EmAndamento"),
+	EmAndamento("Em andamento"),
 	Concluida("Concluida");
 	
-	private String label;
+	private final String label;
 
 	SituacaoTarefa(String label) {
         this.label = label;

@@ -100,6 +100,7 @@ public class TarefaBean {
         }
         return items;
     }
+    
 	
 	public void novo() {
 		tarefa = new Tarefa();

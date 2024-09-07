@@ -31,7 +31,7 @@
         <h:outputLabel value="Situação:" />
   <h:selectOneMenu value="#{tarefaBean.filtro.situacaoSelecionada}">
 					        <f:selectItem itemLabel="Selecione uma situacão"  itemValue="#{null}"/>
-					        <f:selectItems value="#{tarefaBean.situacoes}" var="situacao" itemValue="#{situacao.value}"/>
+					        <f:selectItems value="#{tarefaBean.situacoes}"/>
 					    </h:selectOneMenu>
 
         <h:commandButton value="Filtrar" action="#{tarefaBean.filtrar}" />
