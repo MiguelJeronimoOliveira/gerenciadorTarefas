@@ -2,6 +2,7 @@ package br.com.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.entidades.*;
@@ -9,7 +10,8 @@ import br.com.filtros.*;
 import br.com.controlador.*;
 
 public class DaoTarefa extends DaoGenerico<Tarefa>{
-	 public List<Tarefa> filtrar(FiltroTarefa filtro) {
+	
+	 public List<Tarefa> filtrar(FiltroTarefa filtro, EntityManager entityManager) {
 		 
 		 
 		 Usuario usuarioLogado = UsuarioBean.getUsuarioLogado();
@@ -33,7 +35,7 @@ public class DaoTarefa extends DaoGenerico<Tarefa>{
 
 	        sb.append("ORDER BY t.id ASC");
 	        
-	        Query query = super.entityManager.createQuery(sb.toString());
+	        Query query = entityManager.createQuery(sb.toString());
 	        
 	        if (filtro.getNumero() != null && filtro.getNumero() > 0) {
 	            query.setParameter("numero", filtro.getNumero());

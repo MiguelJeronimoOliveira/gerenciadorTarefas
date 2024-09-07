@@ -15,7 +15,27 @@
 	<h:outputText value="#{usuarioBean.nomeUsuario}" style="font-size:20px"/>
     <h:form>
         <h:commandButton value="Sair" action="#{usuarioBean.logout}" />
-        <h:commandButton value="Pesquisar Tarefas" action="#{usuarioBean.pesquisarTarefas}"/>
+    </h:form>
+
+    <h:form id="formFiltroTarefa" style="margin-top:5%; margin-left:27%">
+    <h:panelGrid columns="2">
+    		<f:facet name="header">
+			<h:outputText value="Pesquisar tarefas"/>
+		</f:facet>
+        <h:outputLabel value="Número da Tarefa:" />
+        <h:inputText value="#{tarefaBean.filtro.numero}" />
+
+        <h:outputLabel value="Título ou Descrição:" />
+        <h:inputText value="#{tarefaBean.filtro.tituloDescricao}" />
+
+        <h:outputLabel value="Situação:" />
+  <h:selectOneMenu value="#{tarefaBean.filtro.situacaoSelecionada}">
+					        <f:selectItem itemLabel="Selecione uma situacão"  itemValue="#{null}"/>
+					        <f:selectItems value="#{tarefaBean.situacoes}"/>
+					    </h:selectOneMenu>
+
+        <h:commandButton value="Filtrar" action="#{tarefaBean.filtrar}" />
+    </h:panelGrid>
     </h:form>
 
 	<h:form id="formTarefa" style="margin-top:5%; margin-left:27%">
@@ -45,8 +65,11 @@
 		
 		</h:panelGrid>
 		
+		
 		<h:commandButton value="Salvar" action="#{tarefaBean.salvar}"/>
 		<h:commandButton value = "Editar" action="#{tarefaBean.editar}"/>
+		
+		
 		
 		<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" border="2" cellpadding="5">
 		
@@ -104,6 +127,8 @@
 		</h:dataTable>
 		
 	</h:form>
+	
+	
 </h:body>
 
 </html>

@@ -36,7 +36,8 @@ public class TarefaBean {
 	
 	public void filtrar ()
 	{
-		tarefas = daoTarefa.filtrar(filtro);
+		tarefas = new ArrayList<Tarefa>();
+		this.tarefas.addAll(daoTarefa.filtrar(filtro, daoGenericoT.getEntityManager())); 
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -62,23 +63,22 @@ public class TarefaBean {
 		tarefa.setSituacao(SituacaoTarefa.EmAndamento);
 		daoGenericoT.save(tarefa);
 		tarefa = new Tarefa();
-		exibirLista();
+		filtrar(); 
 		return "";
 	}
 	
 	//editar tarefa
 	public String editar() {
 		tarefa = daoGenericoT.edit(tarefa);
-		exibirLista();
+		filtrar();
 		return "";
 	}
 
 	//deletar tarefa
 	public String deletar(Tarefa tarefa) {
-		System.out.println(tarefa);
 		daoGenericoT.delete(tarefa);
 		this.tarefa = new Tarefa();
-		exibirLista();
+		filtrar();
 		return "";
 	}	
 	
