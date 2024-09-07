@@ -10,125 +10,122 @@
 <title>Principal</title>
 </head>
 
-<h:body>
+<h:body style="text-align:center;">
 	<h:outputText value="Bem Vindo,     " style="font-size:20px"/>
 	<h:outputText value="#{usuarioBean.nomeUsuario}" style="font-size:20px"/>
+    
     <h:form>
         <h:commandButton value="Sair" action="#{usuarioBean.logout}" />
     </h:form>
 
-    <h:form id="formFiltroTarefa" style="margin-top:5%; margin-left:27%">
-    <h:panelGrid columns="2">
-    		<f:facet name="header">
-			<h:outputText value="Pesquisar tarefas"/>
-		</f:facet>
-        <h:outputLabel value="Número da Tarefa:" />
-        <h:inputText value="#{tarefaBean.filtro.numero}" />
+    <!-- Grid para centralizar os formulários lado a lado -->
+    <h:panelGrid columns="2" style="margin-top: 5%; margin-left: auto; margin-right: auto; width: 80%; text-align:left;">
+        
+        <!-- Formulário de Filtro de Tarefas -->
+        <h:form id="formFiltroTarefa">
+            <h:panelGrid columns="2">
+                <f:facet name="header">
+                    <h:outputText value="Pesquisar tarefas"/>
+                </f:facet>
+                <h:outputLabel value="Número da Tarefa:" />
+                <h:inputText value="#{tarefaBean.filtro.numero}" />
 
-        <h:outputLabel value="Título ou Descrição:" />
-        <h:inputText value="#{tarefaBean.filtro.tituloDescricao}" />
+                <h:outputLabel value="Título ou Descrição:" />
+                <h:inputText value="#{tarefaBean.filtro.tituloDescricao}" />
 
-        <h:outputLabel value="Situação:" />
-  <h:selectOneMenu value="#{tarefaBean.filtro.situacaoSelecionada}">
-					        <f:selectItem itemLabel="Selecione uma situacão"  itemValue="#{null}"/>
-					        <f:selectItems value="#{tarefaBean.situacoes}"/>
-					    </h:selectOneMenu>
+                <h:outputLabel value="Situação:" />
+                <h:selectOneMenu value="#{tarefaBean.filtro.situacaoSelecionada}">
+                    <f:selectItem itemLabel="Selecione uma situação" itemValue="#{null}"/>
+                    <f:selectItems value="#{tarefaBean.situacoes}"/>
+                </h:selectOneMenu>
 
-        <h:commandButton value="Filtrar" action="#{tarefaBean.filtrar}" />
+                
+            </h:panelGrid>
+            <h:commandButton value="Filtrar" action="#{tarefaBean.filtrar}" />
+            <h:commandButton value="limpar" action="#{tarefaBean.limparFiltro}"/>
+            
+        </h:form>
+
+        <!-- Formulário de Adição de Tarefas -->
+        <h:form id="formTarefa">
+            <h:panelGrid columns="2">
+                <f:facet name="header">
+                    <h:outputText value="Adicionar tarefas"/>
+                </f:facet>
+
+                <h:outputText value="Título: "/>
+                <h:inputText value="#{tarefaBean.tarefa.titulo}"/>
+
+                <h:outputText value="Descrição: "/>
+                <h:inputText value="#{tarefaBean.tarefa.descricao}"/>
+
+                <h:outputLabel value="Data limite:" for="cmpDeadline" />
+                <h:inputText id="cmpDeadline" value="#{tarefaBean.tarefa.deadline}" a:type="date">
+                    <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT-03:00"/>
+                </h:inputText>
+
+                <h:outputText value="Prioridade"/>
+                <h:selectOneMenu id="prioridade" value="#{tarefaBean.tarefa.prioridade}">
+                    <f:selectItem itemValue="Baixa" itemLabel="SELECIONE" noSelectionOption="true"></f:selectItem>
+                    <f:selectItem itemValue="Baixa"/>
+                    <f:selectItem itemValue="Media"/>
+                    <f:selectItem itemValue="Alta"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+
+            <h:commandButton value="Salvar" action="#{tarefaBean.salvar}"/>
+        </h:form>
+
     </h:panelGrid>
+
+    <!-- DataTable para listar as tarefas -->
+    <h:form id="formDataTable" style="margin-top: 20px; margin-left: auto; margin-right: auto; width: 80%;">
+        <h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" border="2" cellpadding="5">
+            <f:facet name="header">
+                <h:outputText value="Lista de tarefas"/>
+            </f:facet>
+
+            <h:column>
+                <f:facet name="header">Número</f:facet>
+                <h:outputText value="#{tarefa.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Título</f:facet>
+                <h:outputText value="#{tarefa.titulo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descrição</f:facet>
+                <h:outputText value="#{tarefa.descricao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prioridade</f:facet>
+                <h:outputText value="#{tarefa.prioridade}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Data</f:facet>
+                <h:outputText value="#{tarefa.deadline}">
+                    <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT-03:00"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Situação</f:facet>
+                <h:outputText value="#{tarefa.situacao}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Ações</f:facet>
+                <h:commandLink value="Editar">
+                    <f:setPropertyActionListener value="#{tarefa}" target="#{tarefaBean.tarefa}"/>
+                </h:commandLink>
+                <h:commandLink value="Deletar" action="#{tarefaBean.deletar(tarefa)}">
+                    <f:setPropertyActionListener value="#{tarefa}" target="#{tarefaBean.tarefa}"/>
+                </h:commandLink>
+                <h:commandLink value="Concluir" action="#{tarefaBean.concluir}">
+                    <f:setPropertyActionListener value="#{tarefa}" target="#{tarefaBean.tarefa}"/>
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
     </h:form>
 
-	<h:form id="formTarefa" style="margin-top:5%; margin-left:27%">
-		<h:panelGrid columns="2">
-		<f:facet name="header">
-			<h:outputText value="Adicionar tarefas"/>
-		</f:facet>
-
-		<h:outputText value ="Titulo: "/>
-		<h:inputText value ="#{tarefaBean.tarefa.titulo}"/>
- 
-		<h:outputText value="Descrição: "/>
-		<h:inputText value="#{tarefaBean.tarefa.descricao}"/>
-		
-			    <h:outputLabel value="Data limite:" for="cmpDeadline" />
-			    <h:inputText id="cmpDeadline" value="#{tarefaBean.tarefa.deadline}" a:type="date">
-			    	 <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT-03:00"/>
-			    </h:inputText>
-			    
-		<h:outputText value="Prioridade"/>
-		<h:selectOneMenu id="prioridade" value="#{tarefaBean.tarefa.prioridade}">
-			<f:selectItem itemValue="Baixa" itemLabel="SELECIONE" noSelectionOption="true"></f:selectItem>
-			<f:selectItem itemValue="Baixa"/>
-			<f:selectItem itemValue="Media"/>
-			<f:selectItem itemValue="Alta"/>
-		</h:selectOneMenu>
-		
-		</h:panelGrid>
-		
-		
-		<h:commandButton value="Salvar" action="#{tarefaBean.salvar}"/>
-		<h:commandButton value = "Editar" action="#{tarefaBean.editar}"/>
-		
-		
-		
-		<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" border="2" cellpadding="5">
-		
-		<f:facet name="header">
-			<h:outputText value="Lista de tarefas"/>
-		</f:facet>
-		
-			<h:column>
-				<f:facet name="header">Numero</f:facet>
-				<h:outputText value="#{tarefa.id}"/>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Titulo</f:facet>
-				<h:outputText value="#{tarefa.titulo}"/>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Descrição</f:facet>
-				<h:outputText value="#{tarefa.descricao}"/>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Prioridade</f:facet>
-				<h:outputText value="#{tarefa.prioridade}"/>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Data</f:facet>
-				<h:outputText value="#{tarefa.deadline}">
-					 <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT-03:00"/>
-				</h:outputText>
-			</h:column>
-			
-						<h:column>
-				<f:facet name="header">Situação</f:facet>
-				<h:outputText value="#{tarefa.situacao}"/>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Editar</f:facet>
-				<h:commandLink value="Editar">
-					<f:setPropertyActionListener value="#{tarefa}" target="#{tarefaBean.tarefa}"/>
-				</h:commandLink>
-				
-				<h:outputLabel style= "width:200px" value="  "/>
-				
-				<h:commandLink value="Deletar" action="#{tarefaBean.deletar(tarefa)}">
-					<f:setPropertyActionListener value="#{tarefa}" target="#{tarefaBean.tarefa}"/>
-				</h:commandLink>
-				<h:outputLabel style= "width:200px" value="  "/>
-				
-				<h:commandLink value="Concluir" action="#{tarefaBean.concluir}">
-					<f:setPropertyActionListener value="#{tarefa}" target="#{tarefaBean.tarefa}"/>
-				</h:commandLink>
-			</h:column>
-		</h:dataTable>
-		
-	</h:form>
-	
-	
 </h:body>
-
 </html>

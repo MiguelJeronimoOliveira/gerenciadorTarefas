@@ -12,6 +12,8 @@ public class DaoGenerico<E> {
 	protected EntityManager entityManager = JPAUtil.getEntityManager();
 	
 	//DAO CRUD
+	
+	//metodo salvar
 	public void save(E entidade) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
@@ -21,6 +23,7 @@ public class DaoGenerico<E> {
 		entityTransaction.commit();
 	}
 	
+	//metodo editar
 	public E edit(E entidade) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
@@ -31,6 +34,7 @@ public class DaoGenerico<E> {
 		return retorno;
 	}
 
+	//metodo deletar
 	public void delete(E entidade) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
@@ -40,12 +44,7 @@ public class DaoGenerico<E> {
 	}
 	
 		
-	//lista de tarefas
-	public List<E> getListEntity(Class<E> entidade){
-		List<E> retorno = entityManager.createQuery("from " +  entidade.getName()).getResultList();
-		return retorno;
-	}
-	
+	//lista de tarefas	
 	public List<E> listarOrdenado (Class<E> entidade)
 	{
 		List<E> lista = entityManager.createQuery("from " + entidade.getName() + " order by id ASC").getResultList();

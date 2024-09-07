@@ -26,6 +26,7 @@ public class DaoUsuarioimp implements DaoUsuario {
 		return usuario;
 	}
 	
+	//puxar nome de usuario da sessao
 	public static String getUsuarioNome() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(false);
@@ -33,6 +34,7 @@ public class DaoUsuarioimp implements DaoUsuario {
 		return usuario.getUsername();
 	}
 	
+	//puxar objeto usuario da sessao
 	public static Usuario getUsuario() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(false);

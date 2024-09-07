@@ -11,9 +11,10 @@ import br.com.controlador.*;
 
 public class DaoTarefa extends DaoGenerico<Tarefa>{
 	
+	//metodo de filtrar com base nos parametros fornecidos
 	 public List<Tarefa> filtrar(FiltroTarefa filtro, EntityManager entityManager) {
 		 
-		 
+		 //puxa o usuario logado da sessao
 		 Usuario usuarioLogado = UsuarioBean.getUsuarioLogado();
 		 
 	        StringBuilder sb = new StringBuilder("FROM Tarefa t WHERE 1=1 ");

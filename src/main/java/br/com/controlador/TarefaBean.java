@@ -25,21 +25,31 @@ public class TarefaBean {
 	private FiltroTarefa filtro = new FiltroTarefa();
 	private List<Tarefa> tarefasFiltradas = new ArrayList<Tarefa>();
 	private DaoTarefa daoTarefa = new DaoTarefa();
-	//lista de tarefas 
 	
 	
+	//lista de tarefas
 	@PostConstruct
 	public void exibirLista() {
 		this.tarefas = new ArrayList<Tarefa>();
 		this.tarefas.addAll(getTarefasOrdenadas());
 	}
 	
+	//exibir tarefas filtradas
 	public void filtrar ()
 	{
 		tarefas = new ArrayList<Tarefa>();
 		this.tarefas.addAll(daoTarefa.filtrar(filtro, daoGenericoT.getEntityManager())); 
 	}
 	
+	//limpar o filtro
+	public void limparFiltro() {
+		exibirLista();
+		filtro.setNumero(null);
+		filtro.setSituacaoSelecionada(null);
+		filtro.setTituloDescricao(null);
+	}
+	
+	//puxar lista de tarefas atribuida ao usuario da sessao
 	@SuppressWarnings("unchecked")
 	public List<Tarefa> getTarefasOrdenadas() {
         List<Tarefa> listaTarefas = daoGenericoT.getEntityManager().createNamedQuery("Tarefas.de")
@@ -49,13 +59,12 @@ public class TarefaBean {
         return listaTarefas;
 	}
 	
-	//operacoes CRUD
-	
-	
 	//atribuir usuario a coluna responsavel
 	public void setarResponsavel() {
 		tarefa.setResponsavel(DaoUsuarioimp.getUsuario());
 	}
+		
+	//operacoes do CRUD
 	
 	//salvar tarefa
 	public String salvar() {
@@ -92,7 +101,7 @@ public class TarefaBean {
 		return "";
 	}
 	
-	//get ENUM situacao
+	//Lista de itens do ENUM
     public List<SelectItem> getSituacoes() {
         List<SelectItem> items = new ArrayList<SelectItem>();
         for (SituacaoTarefa situacao : SituacaoTarefa.values()) {
@@ -101,10 +110,6 @@ public class TarefaBean {
         return items;
     }
     
-	
-	public void novo() {
-		tarefa = new Tarefa();
-	}
 	
 	//getters setters
 	public Tarefa getTarefa() {

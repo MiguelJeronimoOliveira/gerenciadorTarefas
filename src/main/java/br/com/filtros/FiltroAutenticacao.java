@@ -38,7 +38,7 @@ public class FiltroAutenticacao implements Filter {
 
         // Verifica a URL
         if (usuarioLogado == null && !url.endsWith("index.jsf") && !url.contains("javax.faces.resource")) {
-            // Redireciona pro login
+            // Volta pro login
             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsf");
             dispatcher.forward(request, response);
         } else {
